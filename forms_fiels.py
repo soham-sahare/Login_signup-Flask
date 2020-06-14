@@ -7,7 +7,7 @@ from passlib.hash import pbkdf2_sha256
 def invalid(form, field):
 
     username = form.username.data
-    password = form.username.data
+    password = field.data
 
     user_data = User.query.filter_by(username = username).first()
     if user_data is None:
