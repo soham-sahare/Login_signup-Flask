@@ -1,5 +1,5 @@
 <!doctype html>
-<title>Python Flask File Upload Example</title>
+<title>Welcome - IA Management System</title>
 <h2>Select a file to upload</h2>
 <p>
 	{% with messages = get_flashed_messages() %}
@@ -12,13 +12,63 @@
 	  {% endif %}
 	{% endwith %}
 </p>
+________________________________________________________________________________________ <br>
+
+<br>
+To Send IA1 mail: 
+
 <form method="post" action="/success" enctype="multipart/form-data">
     <dl>
 		<p>
+			<label>(.csv, .xlxs)</label>
 			<input type="file" name="file" autocomplete="off" required>
+			<input type="submit" value="Submit">
+
 		</p>
     </dl>
-    <p>
-		<input type="submit" value="Submit">
-	</p>
+</form>
+
+________________________________________________________________________________________ <br>
+
+________________________________________________________________________________________ <br>
+
+<br>
+To Send IA1 + IA2 mail: 
+
+<form method="post" action="/success2" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<label>(.csv, .xlxs)</label>
+			<input type="file" name="file" autocomplete="off" required>
+			<input type="submit" value="Submit">
+
+		</p>
+    </dl>
+</form>
+
+________________________________________________________________________________________ <br>
+
+________________________________________________________________________________________ <br>
+
+<br>
+To Send IA Seating Arrangement mail: 
+
+<form method="post" action="/success2" enctype="multipart/form-data">
+    <dl>
+		<p>
+			<label>File to be sent : (.pdf)</label><input type="file" name="file1" autocomplete="off" required>
+			<label>Whom to to be sent : (.csv, .xlxs)</label><input type="file" name="file2" autocomplete="off" required>
+
+			<input type="submit" value="Submit">
+		</p>
+    </dl>
+</form>
+
+________________________________________________________________________________________ <br>
+
+
+<form action="/logout" method="POST">
+
+	<input type="submit" value="Logout">
+
 </form>

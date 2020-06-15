@@ -4,23 +4,25 @@ from flask import Flask, render_template, redirect, url_for, flash, request
 from passlib.hash import pbkdf2_sha256
 from flask_login import LoginManager, login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
+import pandas as pd
 
 from forms_fiels import *
 from models import *
+from project import *
 
 app = Flask(__name__)
-app.secret_key = os.environ.get('SECRET')
+app.secret_key = 'K\xa6\x13\x94\xeex\x06\xf6 \xf6K&\xef\xd8\x160\xb8\x18u\xae"2D8'
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://nzolhcsgkxnend:ce453464e459b09167422b0bc451957846c8b7a682d5ef7480799320bc0c342f@ec2-3-231-16-122.compute-1.amazonaws.com:5432/d5qu4f6kvlnuon'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['UPLOAD_FOLDER'] = 'myfolder'
-
 
 db = SQLAlchemy(app)
 
 login = LoginManager(app)
 login.init_app(app)
+
 
 @login.user_loader
 def load_user(id):
@@ -81,34 +83,38 @@ def logout():
     logout_user()
     flash("Logged out successfully!!", 'success')
 
-    return redirect(url_for('login'))
-
-ALLOWED_EXTENSIONS = set(['xlsx', 'csv'])
-def allowed_file(filename):
-	return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return render_template("logout.html")
 
 @app.route('/success', methods=['GET', 'POST'])
 def success():
 
-	if request.method == 'POST':
+    if request.method == 'POST':
 
-		if 'file' not in request.files:
-			flash('No file part')
-			return redirect(request.url)
-		file = request.files['file']
+        f = request.files['file']
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
 
-		if file.filename == '':
-			flash('No file selected for uploading')
-			return redirect(request.url)
+        l = 'myfolder/{}'.format(f.filename)
 
-		if file and allowed_file(file.filename):
-			filename = secure_filename(file.filename)
-			file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-			flash('File successfully uploaded')
-			return redirect('/main')
-		else:
-			flash('Allowed file types are txt, pdf, png, jpg, jpeg, gif')
-			return redirect(request.url)
+        return readfile(l)
+
+    return render_template("main.html")
+
+@app.route('/success2', methods=['GET', 'POST'])
+def success2():
+
+    if request.method == 'POST':
+
+        f1 = request.files['file1']
+        f1.save(os.path.join(app.config['UPLOAD_FOLDER'], f1.filename))
+        f2 = request.files['file2']
+        f2.save(os.path.join(app.config['UPLOAD_FOLDER'], f2.filename))
+
+        l1 = 'myfolder/{}'.format(f1.filename)
+        l2 = 'myfolder/{}'.format(f2.filename)
+
+        return arrangement(l1, l2)
+
+    return render_template("main.html")
 
 if __name__ == "__main__":
 
