@@ -11,9 +11,9 @@ from models import *
 from project import *
 
 app = Flask(__name__)
-app.secret_key = 'K\xa6\x13\x94\xeex\x06\xf6 \xf6K&\xef\xd8\x160\xb8\x18u\xae"2D8'
+app.secret_key = os.environ.get('SECRET')
 
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://nzolhcsgkxnend:ce453464e459b09167422b0bc451957846c8b7a682d5ef7480799320bc0c342f@ec2-3-231-16-122.compute-1.amazonaws.com:5432/d5qu4f6kvlnuon'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['UPLOAD_FOLDER'] = 'myfolder'
