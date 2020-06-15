@@ -254,7 +254,7 @@ def arrangement(l1, l2):
         print("Logged in successfully as : "+from_+"\n")            
 
         print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
-        for i in zip(to) :
+        for i in to:
 
             data = MIMEMultipart()
             data['To'] = i
