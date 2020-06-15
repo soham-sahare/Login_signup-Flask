@@ -63,7 +63,7 @@ defusedxml==0.6.0
 diff-match-patch==20181111
 distlib==0.3.0
 distributed==2.11.0
-Django==3.0.5
+Django==3.0.7
 dnspython==1.16.0
 docutils==0.16
 dominate==2.5.1
