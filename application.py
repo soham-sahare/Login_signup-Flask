@@ -99,23 +99,6 @@ def success():
 
     return render_template("main.html")
 
-@app.route('/success2', methods=['GET', 'POST'])
-def success2():
-
-    if request.method == 'POST':
-
-        f1 = request.files['file1']
-        f1.save(os.path.join(app.config['UPLOAD_FOLDER'], f1.filename))
-        f2 = request.files['file2']
-        f2.save(os.path.join(app.config['UPLOAD_FOLDER'], f2.filename))
-
-        l1 = 'myfolder/{}'.format(f1.filename)
-        l2 = 'myfolder/{}'.format(f2.filename)
-
-        return arrangement(l1, l2)
-
-    return render_template("main.html")
-
 if __name__ == "__main__":
 
     app.run(debug = True)
