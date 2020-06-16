@@ -11,11 +11,9 @@ from models import *
 from project import *
 
 app = Flask(__name__)
-#app.secret_key = os.environ.get('SECRET')
-app.secret_key = 'K\xa6\x13\x94\xeex\x06\xf6 \xf6K&\xef\xd8\x160\xb8\x18u\xae"2D8'
+app.secret_key = os.environ.get('SECRET')
 
-#app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://nzolhcsgkxnend:ce453464e459b09167422b0bc451957846c8b7a682d5ef7480799320bc0c342f@ec2-3-231-16-122.compute-1.amazonaws.com:5432/d5qu4f6kvlnuon'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 app.config['UPLOAD_FOLDER'] = 'myfolder'
@@ -97,7 +95,27 @@ def success():
 
         l = 'myfolder/{}'.format(f.filename)
 
-        return readfile(l)
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        return readfile(l, email, password)
+
+    return render_template("main.html")
+
+@app.route('/success1', methods=['GET', 'POST'])
+def success1():
+
+    if request.method == 'POST':
+        
+        f = request.files['file']
+        f.save(os.path.join(app.config['UPLOAD_FOLDER'], f.filename))
+
+        l = 'myfolder/{}'.format(f.filename)
+
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        return readfile1(l, email, password)
 
     return render_template("main.html")
 
@@ -114,9 +132,33 @@ def success2():
         l1 = 'myfolder/{}'.format(f1.filename)
         l2 = 'myfolder/{}'.format(f2.filename)
 
-        return arrangement(l1, l2)
+        email = request.form.get("email")
+        password = request.form.get("password")
+
+        return arrangement(l1, l2, email, password)
 
     return render_template("main.html")
+
+@app.route('/ia1', methods=['GET', 'POST'])
+def ia1():
+
+    if request.method == 'POST':
+
+        return render_template("ia1.html")
+
+@app.route('/ia1and2', methods=['GET', 'POST'])
+def ia1and2():
+
+    if request.method == 'POST':
+
+        return render_template("ia1and2.html")
+
+@app.route('/iaarrangement', methods=['GET', 'POST'])
+def iaarrangement():
+
+    if request.method == 'POST':
+
+        return render_template("iaarrangement.html")
 
 if __name__ == "__main__":
 
