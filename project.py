@@ -100,7 +100,7 @@ def mail(df, e, p):
         server.quit()
 
     else:
-        print("Enter valid email and password")
+        return ("Enter valid email and password")
 
     return clean()
 
@@ -264,7 +264,7 @@ def arrangement(l1, l2, email, password):
         server.quit()
 
     else:
-        print("Enter valid email and password")
+        return ("Enter valid email and password")
 
     return clean()
 
