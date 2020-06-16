@@ -63,7 +63,8 @@ def mail(df, e, p):
                         success = True
                     except:
                         success = False
-                        
+                        print("Login Unsuccessfull")
+
     if (success == True):
 
         for i, j in zip(to, name) :
@@ -229,6 +230,7 @@ def arrangement(l1, l2, email, password):
                         success = True
                     except:
                         success = False
+                        print("Login Unsuccessfull")
                         
     if (success == True):
 
